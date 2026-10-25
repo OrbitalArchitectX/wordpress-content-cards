@@ -1,0 +1,36 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "content-cards/content-cards",
+  "version": "1.1.0",
+  "title": "Content Cards",
+  "description": "A section heading and one to three linked content cards.",
+  "category": "design",
+  "icon": "grid-view",
+  "textdomain": "content-cards",
+  "style": "file:./style.css",
+  "editorScript": "file:./editor.js",
+  "attributes": {
+    "section_heading": { "type": "string", "default": "" },
+    "cards": {
+      "type": "array",
+      "default": [{ "title": "", "description": "", "url": "", "link_label": "" }],
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "url": { "type": "string" },
+          "link_label": { "type": "string" }
+        }
+      },
+      "minItems": 1,
+      "maxItems": 3
+    }
+  },
+  "supports": {
+    "html": false,
+    "customClassName": false,
+    "align": false
+  }
+}

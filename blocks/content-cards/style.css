@@ -1,0 +1,106 @@
+.content-cards {
+	container: content-cards / inline-size;
+	margin-block: 2rem;
+	min-width: 0;
+}
+
+.content-cards .content-cards__heading {
+	color: inherit;
+	margin: 0 0 1rem;
+	line-height: 1.3;
+	overflow-wrap: anywhere;
+}
+
+.content-cards .content-cards__grid {
+	display: grid;
+	align-items: stretch;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 1.25rem;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+/* Respond to the block's available width, including inside narrow theme columns. */
+@container content-cards (min-width: 600px) {
+	.content-cards .content-cards__grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.content-cards .content-cards__card:only-child {
+		grid-column: 1 / -1;
+	}
+}
+
+/* Fit three cards within the theme's standard content column. */
+@container content-cards (min-width: 640px) {
+	.content-cards .content-cards__grid:has(> .content-cards__card:nth-child(3)) {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+.content-cards .content-cards__card {
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	gap: 0.625rem;
+	color: #1f2937;
+	min-width: 0;
+	margin: 0;
+	padding: clamp(1.25rem, 2.5vw, 1.75rem);
+	padding-block: 1.125rem;
+	border: 1px solid #d7dce2;
+	border-radius: 0.5rem;
+	background: #f8fafb;
+	line-height: 1.6;
+	overflow-wrap: anywhere;
+}
+
+.content-cards .content-cards__title {
+	color: inherit;
+	font-size: 1.25rem;
+	font-weight: 600;
+	line-height: 1.3;
+	margin: 0;
+}
+
+.content-cards .content-cards__description {
+	margin: 0;
+	font-size: 0.9375em;
+	line-height: 1.55;
+	white-space: pre-line;
+}
+
+.content-cards .content-cards__link {
+	align-self: flex-start;
+	margin-block-start: auto;
+	padding-block-start: 0.25rem;
+	color: #174ea6;
+	font-weight: 600;
+	line-height: 1.5;
+	text-decoration: underline;
+	text-decoration-thickness: 0.08em;
+	text-underline-offset: 0.15em;
+}
+
+.content-cards .content-cards__link:hover {
+	color: #103b7a;
+	text-decoration-thickness: 0.15em;
+}
+
+.content-cards .content-cards__link:focus-visible {
+	outline: 3px solid #174ea6;
+	outline-offset: 4px;
+}
+
+.content-cards .content-cards__link-context {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+	border: 0;
+}
