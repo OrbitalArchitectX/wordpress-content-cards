@@ -25,6 +25,16 @@ Card titles are required. Links need a valid HTTP/HTTPS URL and a label. Cards w
 
 The editor includes a live preview of the rendered cards.
 
+## Screenshots
+
+### Editor view
+
+![Content Cards editor with section heading, card title, description, and optional link fields](docs/screenshots/editor-view.png)
+
+### Frontend view
+
+![Content Cards frontend showing three equal-height cards in a row, including a card with an optional link](docs/screenshots/frontend-view.png)
+
 ## How it works
 
 The plugin registers a native Gutenberg block using `block.json`. The editor uses WordPress's built-in JavaScript components, while PHP handles the frontend output.
