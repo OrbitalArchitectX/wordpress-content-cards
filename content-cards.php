@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Content Cards
  * Description: A small, accessible native Content Cards block.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Requires at least: 6.5
  * Requires PHP: 8.1
  * License: GPL-2.0-or-later

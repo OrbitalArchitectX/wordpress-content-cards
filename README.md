@@ -25,6 +25,8 @@ Card titles are required. Links need a valid HTTP/HTTPS URL and a label. Cards w
 
 The editor includes a live preview of the rendered cards.
 
+Select the block and open Gutenberg's **Styles** panel to choose **Soft** (the default light surface), **Outline** (a transparent surface with a clearer border), or **Accent** (a light blue surface with a blue top border). The selected style applies to the whole group and appears in the live preview and frontend.
+
 ## Screenshots
 
 ### Editor view
@@ -57,7 +59,9 @@ The PHP tests cover block registration, attribute handling, card limits, links, 
 
 **Local testing:** Plugin activation, Gutenberg editing, saving, reloading, and frontend rendering have been tested in a local WordPress environment. Desktop and mobile layouts have also been checked.
 
-**Automated checks:** PHP lint and JavaScript syntax checks passed. All 44 isolated tests passed using WordPress 7.1.3 APIs and PHP 8.4.23.
+**Automated checks:** PHP lint and JavaScript syntax checks passed. All 55 isolated tests passed using WordPress 7.1.3 APIs and PHP 8.4.23, including style metadata, wrapper classes, and escaping.
+
+Soft, Outline, and Accent were checked in the local editor's PHP preview. The default frontend was also checked at narrow, intermediate, and desktop widths with no horizontal overflow. Saving and reloading each selected style still needs manual confirmation.
 
 Additional testing is still needed for responsive breakpoint transitions, screen readers, keyboard navigation, zoom, and longer content. Compatibility with the declared minimum WordPress and PHP versions has not been separately verified.
 

@@ -54,6 +54,10 @@ foreach ( array( 'class-wp-error.php', 'class-wp-block-type.php', 'class-wp-bloc
 	}
 }
 
+require_once ABSPATH . WPINC . '/class-wp-block-supports.php';
+require_once ABSPATH . WPINC . '/block-supports/generated-classname.php';
+require_once ABSPATH . WPINC . '/block-supports/custom-classname.php';
+add_action( 'init', array( 'WP_Block_Supports', 'init' ), 22 );
 
 function check( bool $condition, string $message ): void {
 	if ( ! $condition ) {
@@ -80,6 +84,28 @@ check( str_ends_with( $script->src, '/editor.js' ), 'Editor asset URL must resol
 check( in_array( 'wp-server-side-render', $script->deps, true ), 'Editor preview must declare its WordPress dependency.' );
 check( 'content-cards' === $script->textdomain, 'Editor script must support translations.' );
 check( count( $block->style_handles ) === 1, 'Shared stylesheet must register.' );
+check( array( 'soft', 'outline', 'accent' ) === array_column( $block->styles, 'name' ), 'All three native block styles must register.' );
+check( true === $block->styles[0]['isDefault'], 'Soft must remain the default style.' );
+check( 'string' === $block->attributes['className']['type'], 'WordPress must register the style class attribute.' );
+
+// Supply the same render context that WP_Block sets before invoking a callback.
+foreach ( array( 'soft', 'outline', 'accent' ) as $style ) {
+	WP_Block_Supports::$block_to_render = array(
+		'blockName' => $block->name,
+		'attrs'     => array( 'className' => 'is-style-' . $style ),
+	);
+	$html = content_cards_render( array( 'cards' => array( array( 'title' => 'Style preview' ) ) ) );
+	check( str_contains( $html, 'is-style-' . $style ), 'Selected style must reach the PHP wrapper.' );
+	check( str_contains( $html, 'wp-block-content-cards-content-cards' ), 'Native block wrapper class must be preserved.' );
+}
+WP_Block_Supports::$block_to_render = array(
+	'blockName' => $block->name,
+	'attrs'     => array( 'className' => 'is-style-outline" onmouseover="alert(1)' ),
+);
+$html = content_cards_render( array( 'cards' => array( array( 'title' => 'Safe class' ) ) ) );
+check( ! preg_match( '/\sonmouseover="/', $html ), 'Malformed class values must not create an event handler.' );
+check( str_contains( $html, '&quot;' ), 'Wrapper class values must be escaped.' );
+WP_Block_Supports::$block_to_render = null;
 
 function render_fixture( $rows, $heading = '' ): string {
 	return content_cards_render( array( 'cards' => $rows, 'section_heading' => $heading ) );

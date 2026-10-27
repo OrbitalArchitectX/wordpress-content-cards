@@ -49,13 +49,14 @@ function content_cards_render( $attributes ): string {
 	}
 
 	$heading_id = wp_unique_id( 'content-cards-heading-' );
+	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'content-cards' ) );
 	ob_start();
 	?>
 	<?php if ( '' !== $heading ) : ?>
-		<section class="content-cards" aria-labelledby="<?php echo esc_attr( $heading_id ); ?>">
+		<section <?php echo $wrapper_attributes; // Escaped by WordPress. ?> aria-labelledby="<?php echo esc_attr( $heading_id ); ?>">
 		<h2 class="content-cards__heading" id="<?php echo esc_attr( $heading_id ); ?>"><?php echo esc_html( $heading ); ?></h2>
 	<?php else : ?>
-		<div class="content-cards">
+		<div <?php echo $wrapper_attributes; // Escaped by WordPress. ?>>
 	<?php endif; ?>
 		<ul class="content-cards__grid" role="list">
 			<?php foreach ( $cards as $card ) : ?>

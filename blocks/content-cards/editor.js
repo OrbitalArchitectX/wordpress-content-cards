@@ -89,7 +89,7 @@
 				el('h3', null, __('Preview', 'content-cards')),
 				el(wp.components.Disabled, null, el(ServerSideRender, {
 					block: 'content-cards/content-cards',
-					attributes: { section_heading: text(attributes.section_heading), cards: cards },
+					attributes: { section_heading: text(attributes.section_heading), cards: cards, className: text(attributes.className) },
 					EmptyResponsePlaceholder: function () {
 						return el('p', null, __('Add a title to preview your cards.', 'content-cards'));
 					}
